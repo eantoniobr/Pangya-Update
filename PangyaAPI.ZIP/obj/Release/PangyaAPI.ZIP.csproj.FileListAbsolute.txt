@@ -1,0 +1,6 @@
+C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.ZIP\bin\Release\PangyaAPI.ZIP.dll
+C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.ZIP\bin\Release\PangyaAPI.ZIP.pdb
+C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.ZIP\obj\Release\PangyaAPI.ZIP.csproj.AssemblyReference.cache
+C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.ZIP\obj\Release\PangyaAPI.ZIP.csproj.CoreCompileInputs.cache
+C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.ZIP\obj\Release\PangyaAPI.ZIP.dll
+C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.ZIP\obj\Release\PangyaAPI.ZIP.pdb
