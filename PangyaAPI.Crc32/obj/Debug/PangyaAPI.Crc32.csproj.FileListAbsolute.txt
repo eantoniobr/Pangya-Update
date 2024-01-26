@@ -1,6 +1,0 @@
-C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.Crc32\bin\Debug\PangyaAPI.Crc32.dll
-C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.Crc32\bin\Debug\PangyaAPI.Crc32.pdb
-C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.Crc32\obj\Debug\PangyaAPI.Crc32.csproj.AssemblyReference.cache
-C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.Crc32\obj\Debug\PangyaAPI.Crc32.csproj.CoreCompileInputs.cache
-C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.Crc32\obj\Debug\PangyaAPI.Crc32.dll
-C:\Users\LENOVO\source\repos\PangyaAPI\PangyaAPI.Crc32\obj\Debug\PangyaAPI.Crc32.pdb

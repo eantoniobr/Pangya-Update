@@ -1,22 +1,28 @@
 ﻿using PangyaAPI.Utilities.Cryptography;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PangyaAPI.UpdateList
 {
     public class UpdateList
     {
-        public byte[] update_data { get; set; }
         //Chaves
-        private readonly uint[] _xtea_US_key = { 66455465, 57629246, 17826484, 78315754 }; // 0x3F607A9, 0x36F5A3E, 0x11002B4, 0x4AB00EA
-        private readonly uint[] _xtea_JP_key = { 34234324, 32423423, 45336224, 83272673 }; // 0x20A5FD4, 0x1EEBDFF, 0x2B3C6A0, 0x4F6A3E1
-        private readonly uint[] _xtea_TH_key = { 84595515, 12254985, 72548314, 46875682 }; // 0x50AD33B, 0x0BAFF09, 0x452FFDA, 0x2CB4422
-        private readonly uint[] _xtea_EU_key = { 32081624, 92374137, 64139451, 46772272 }; // 0x1E986D8, 0x5818479, 0x3D2B0BB, 0x2C9B030
-        private readonly uint[] _xtea_ID_key = { 23334327, 21322395, 41884343, 93424468 }; // 0x1640DB7, 0x1455A9B, 0x27F1AB7, 0x5918B54
-        private readonly uint[] _xtea_KR_key = { 75871606, 85233154, 85204374, 42969558 }; // 0x485B576, 0x5148E02, 0x5141D96, 0x28FA9D6
+        private uint[] _xtea_US_key = { 66455465, 57629246, 17826484, 78315754 }; // 0x3F607A9, 0x36F5A3E, 0x11002B4, 0x4AB00EA
+        private uint[] _xtea_JP_key = { 34234324, 32423423, 45336224, 83272673 }; // 0x20A5FD4, 0x1EEBDFF, 0x2B3C6A0, 0x4F6A3E1
+        private uint[] _xtea_TH_key = { 84595515, 12254985, 72548314, 46875682 }; // 0x50AD33B, 0x0BAFF09, 0x452FFDA, 0x2CB4422
+        private uint[] _xtea_EU_key = { 32081624, 92374137, 64139451, 46772272 }; // 0x1E986D8, 0x5818479, 0x3D2B0BB, 0x2C9B030
+        private uint[] _xtea_ID_key = { 23334327, 21322395, 41884343, 93424468 }; // 0x1640DB7, 0x1455A9B, 0x27F1AB7, 0x5918B54
+        private uint[] _xtea_KR_key = { 75871606, 85233154, 85204374, 42969558 }; // 0x485B576, 0x5148E02, 0x5141D96, 0x28FA9D6
 
-        public string Document = Directory.GetCurrentDirectory();
+        public byte[] Document;
+        private uint[] DecryptionKey;
+        private string FilePath;
+
         public enum Result
         {
             Sucess,
@@ -40,25 +46,110 @@ namespace PangyaAPI.UpdateList
             Encrypt
         }
 
-        /// <summary>
-        /// Obtém Chave
-        /// </summary>
-        public uint[] GetKey(KeyEnum key)
+        public UpdateList(string _filepath)
         {
-            switch (key)
+            this.FilePath = _filepath;
+            Document = new byte[0];
+        }
+
+        public UpdateList()
+        {
+        }
+
+        /// <summary>
+        /// Construtor com 2 parametros
+        /// </summary>
+        /// <param name="_filepath">local ou arquivo</param>
+        /// <param name="skey">chave do arquivo</param>
+        public UpdateList(string _filepath, string skey) : this(_filepath)
+        {
+            SetDecryptionKey(skey);
+        }
+        public UpdateList(byte[] data,string _filepath, string skey) : this(_filepath, skey)
+        {
+            Document = data;
+        }
+
+        public string getDocument()
+        {
+            return Encoding.UTF8.GetString(Document);
+        }
+        /// <summary>
+        /// Sets the decryption key for the updatelist decryption
+        /// </summary>
+        /// <param name="key">Decryption key</param>
+        public void SetDecryptionKey(KeyEnum key)
+        {
+            if (KeyEnum.US == key)
             {
-                case KeyEnum.US: return _xtea_US_key;
-                case KeyEnum.JP: return _xtea_JP_key;
-                case KeyEnum.TH: return _xtea_TH_key;
-                case KeyEnum.EU: return _xtea_EU_key;
-                case KeyEnum.ID: return _xtea_ID_key;
-                case KeyEnum.KR: return _xtea_KR_key;
-                default: throw new Exception("Chave inválida");
+                DecryptionKey = _xtea_US_key;
+            }
+            if (KeyEnum.TH == key)
+            {
+                DecryptionKey = _xtea_TH_key;
+            }
+            if (KeyEnum.JP == key)
+            {
+                DecryptionKey = _xtea_JP_key;
+            }
+            if (KeyEnum.ID == key)
+            {
+                DecryptionKey = _xtea_ID_key;
+            }
+            if (KeyEnum.KR == key)
+            {
+                DecryptionKey = _xtea_KR_key;
+            }
+            if (KeyEnum.EU == key)
+            {
+                DecryptionKey = _xtea_EU_key;
+            }
+            if (DecryptionKey == null)
+            {
+                throw new Exception("Chave inválida");
+            }
+        }
+        /// <summary>
+        /// Sets the decryption key for the updatelist decryption
+        /// </summary>
+        /// <param name="key">Decryption key</param>
+
+        public void SetDecryptionKey(string key)
+        {
+            if ("US" == key)
+            {
+                DecryptionKey = _xtea_US_key;
+            }
+            if ("TH" == key)
+            {
+                DecryptionKey = _xtea_TH_key;
+            }
+            if ("JP" == key)
+            {
+                DecryptionKey = _xtea_JP_key;
+            }
+            if ("ID" == key)
+            {
+                DecryptionKey = _xtea_ID_key;
+            }
+            if ("KR" == key)
+            {
+                DecryptionKey = _xtea_KR_key;
+            }
+            if ("EU" == key)
+            {
+                DecryptionKey = _xtea_EU_key;
+            }
+            if (DecryptionKey == null)
+            {
+                throw new Exception("Chave inválida");
             }
         }
 
+        public void SetFileName(string _file)
+        { FilePath = _file; }
 
-        // checar se está encriptado ou dwcriptografado
+        // checar se está encriptado ou decriptografado
         public OperacaoEnum CheckCryptDecrypt(string filePath)
         {
 
@@ -70,244 +161,166 @@ namespace PangyaAPI.UpdateList
 
             if (dataResult[0] == '^' && dataResult[1] == 'J')
             {
-                Console.WriteLine("UpdateList Decrypt...");
+                Debug.WriteLine("UpdateList Decrypt...");
             }
             //verifica se está decriptografado
             // dica o arquivo criptografado inicia com ? >
             if (dataResult[0] == '<' && dataResult[1] == '?')
             {
-                Console.Write("Trying to Encrypt ... \n");
+                Debug.WriteLine("Trying to Encrypt ... \n");
                 if (dataResult[0x4B] == 'T' && dataResult[0x4C] == 'H')
                 {
-                    Console.Write("Encrypt Key found : Thai ... \n");
+                    Debug.WriteLine("Encrypt Key found : Thai ... \n");
                     return OperacaoEnum.Encrypt;
                 }
                 else if (dataResult[0x4B] == 'J' && dataResult[0x4C] == 'P')
                 {
-                    Console.Write("Encrypt Key found : Japan ... \n");
+                    Debug.WriteLine("Encrypt Key found : Japan ... \n");
                     return OperacaoEnum.Encrypt;
                 }
                 else if (dataResult[0x4B] == 'G' && dataResult[0x4C] == 'B')
                 {
-                    Console.Write("Encrypt Key found : English ... \n");
+                    Debug.WriteLine("Encrypt Key found : English ... \n");
                     return OperacaoEnum.Encrypt;
                 }
                 else if (dataResult[0x4B] == 'E' && dataResult[0x4C] == 'U')
                 {
-                    Console.Write("Encrypt Key found : Europe ... \n");
+                    Debug.WriteLine("Encrypt Key found : Europe ... \n");
                     return OperacaoEnum.Encrypt;
                 }
                 else if (dataResult[0x4B] == 'I' && dataResult[0x4C] == 'D')
                 {
-                    Console.Write("Encrypt Key found : Indonesia ... \n");
+                    Debug.WriteLine("Encrypt Key found : Indonesia ... \n");
                     return OperacaoEnum.Encrypt;
                 }
                 else if (dataResult[0x4B] == 'K' && dataResult[0x4C] == 'R')
                 {
-                    Console.Write("Encrypt Key found : Korean ... \n");
+                    Debug.WriteLine("Encrypt Key found : Korean ... \n");
                     return OperacaoEnum.Encrypt;
                 }
                 else
                 {
                     //no have key :'(
-                    Console.WriteLine("No Key found - Maybe Bad Decrypt :/ ... \n");
+                    Debug.WriteLine("No Key found - Maybe Bad Decrypt :/ ... \n");
                 }
             }
 
             return OperacaoEnum.Decrypt;
         }
-        /// <summary>
-        /// Decriptografa ou Criptografa Updatelist
-        /// </summary>
-        /// <param name="filePath">Caminho do arquivo</param>
-        /// <param name="key">Chave do updatelist</param>
-        /// <param name="decrypted">Decriptografado ou Criptografado</param>
-        public Result DecryptEncryptFile(string filePath, KeyEnum key)
-        {
-
-            var operacao = CheckCryptDecrypt(filePath);
-
-            //Lê arquivo
-            var data = File.ReadAllBytes(filePath);
-
-            var dataResult = new byte[data.Length];
-            //Resultado
-            char[] updateresult = Encoding.UTF8.GetChars(data);
-            //encrypt
-            if (updateresult[0] == '<' && updateresult[1] == '?')
-            {
-                if (updateresult[0x4B] == 'T' && updateresult[0x4C] == 'H')
-                {
-                    key = KeyEnum.TH;
-                }
-                else if (updateresult[0x4B] == 'J' && updateresult[0x4C] == 'P')
-                {
-                    key = KeyEnum.JP;
-                }
-                else if (updateresult[0x4B] == 'G' && updateresult[0x4C] == 'B')
-                {
-                    key = KeyEnum.US;
-                }
-                else if (updateresult[0x4B] == 'E' && updateresult[0x4C] == 'U')
-                {
-                    key = KeyEnum.EU;
-                }
-                else if (updateresult[0x4B] == 'I' && updateresult[0x4C] == 'D')
-                {
-                    key = KeyEnum.ID;
-                }
-                else if (updateresult[0x4B] == 'K' && updateresult[0x4C] == 'R')
-                {
-                    key = KeyEnum.ID;
-                }
-                else
-                {
-                    //no have key :'(
-                    Console.WriteLine("No Key found - Maybe Bad Decrypt :/ ... \n");
-                }
-            }
-
-
-            for (int i = 0; i < data.Length; i += 8)
-            {
-                //Dados cortados
-                var dataCut = new uint[8];
-
-                Buffer.BlockCopy(data, srcOffset: i, dst: dataCut, dstOffset: 0, count: 8);
-
-                if (operacao == OperacaoEnum.Encrypt)
-                {
-                    XTEA.Encipher(16, ref dataCut, GetKey(key));
-                }
-                else
-                {
-                  XTEA.Decipher(16, ref dataCut, GetKey(key));
-                }
-
-                Buffer.BlockCopy(dataCut, srcOffset: 0, dst: dataResult, dstOffset: i, count: 8);
-
-                //If Decrypt fail ...
-                if (i == 0 && dataResult[0] != '<' && dataResult[1] != '?' && operacao == OperacaoEnum.Decrypt)
-                {
-                    return Result.Test_New_Key;
-                }
-            }
-
-            Document = Encoding.UTF7.GetString(dataResult).Replace("\0", "");
-
-            update_data = Encoding.UTF7.GetBytes(Document);
-            return Result.Sucess;
-        }
 
 
         /// <summary>
         /// Decriptografa ou Criptografa Updatelist
         /// </summary>
-        /// <param name="filePath">Caminho do arquivo</param>
-        /// <param name="key">Chave do updatelist</param>
+        /// <param name="operacao">encript ou decript o arquivo</param>
+        /// <param name="skey">Chave do updatelist</param>
         /// <param name="decrypted">Decriptografado ou Criptografado</param>
-        public Result DecryptEncryptFile(byte[] data, KeyEnum key)
+        public bool DecryptFile(string skey = "NONE")
         {
-
-            var dataResult = new byte[data.Length];
-            //Resultado
-            char[] updateresult = Encoding.UTF8.GetChars(data);
-            //encrypt
-            if (updateresult[0] == '<' && updateresult[1] == '?')
+            try
             {
-                if (updateresult[0x4B] == 'T' && updateresult[0x4C] == 'H')
+                if (skey != "NONE" || DecryptionKey == null)
                 {
-                    key = KeyEnum.TH;
+                    SetDecryptionKey(skey);
                 }
-                else if (updateresult[0x4B] == 'J' && updateresult[0x4C] == 'P')
+                var _result = new byte[Document.Length];
+                if (Document.Count() == 0)
                 {
-                    key = KeyEnum.JP;
-                }
-                else if (updateresult[0x4B] == 'G' && updateresult[0x4C] == 'B')
-                {
-                    key = KeyEnum.US;
-                }
-                else if (updateresult[0x4B] == 'E' && updateresult[0x4C] == 'U')
-                {
-                    key = KeyEnum.EU;
-                }
-                else if (updateresult[0x4B] == 'I' && updateresult[0x4C] == 'D')
-                {
-                    key = KeyEnum.ID;
-                }
-                else if (updateresult[0x4B] == 'K' && updateresult[0x4C] == 'R')
-                {
-                    key = KeyEnum.ID;
+
+                    using (var inStream = File.OpenRead(FilePath))
+                    {
+                        try
+                        {
+                            XTEA.DecipherStreamTrimNull(DecryptionKey, inStream, out Document);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Error: {ex.Message}");
+                            return false;
+                        }
+                    }
                 }
                 else
                 {
-                    //no have key :'(
-                    Console.WriteLine("No Key found - Maybe Bad Decrypt :/ ... \n");
+                    try
+                    {
+                        XTEA.DecipherStreamTrimNull(DecryptionKey, Document, out _result);
+                        Document = _result;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error: {ex.Message}");
+                        return false;
+                    }
                 }
+
+                return true;
             }
-
-          var  operacao = OperacaoEnum.Decrypt;
-            for (int i = 0; i < data.Length; i += 8)
+            catch (Exception ex)
             {
-                //Dados cortados
-                var dataCut = new uint[8];
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+        /// <summary>
+        /// Decriptografa ou Criptografa Updatelist
+        /// </summary>
+        /// <param name="operacao">encript ou decript o arquivo</param>
+        /// <param name="skey">Chave do updatelist</param>
+        /// <param name="decrypted">Decriptografado ou Criptografado</param>
+        public bool EncryptFile(string skey = "NONE")
+        {
 
-                Buffer.BlockCopy(data, srcOffset: i, dst: dataCut, dstOffset: 0, count: 8);
-
-                if (operacao == OperacaoEnum.Encrypt)
+            try
+            {
+                if (skey != "NONE" || DecryptionKey == null)
                 {
-                    XTEA.Encipher(16, ref dataCut, GetKey(key));
+                    SetDecryptionKey(skey);
+                }
+                var _result = new byte[Document.Length];
+                if (Document.Count() == 0)
+                {
+                    using (var inStream = File.OpenRead(FilePath))
+                    {
+                        try
+                        {
+                            XTEA.EncipherStreamPadNull(DecryptionKey, inStream, out _result);
+                            Document = _result;
+                            File.WriteAllBytes(FilePath, Document);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Error: {ex.Message}");
+                            return false;
+                        }
+                    }
                 }
                 else
                 {
-                    XTEA.Decipher(16, ref dataCut, GetKey(key));
+                    try
+                    {
+
+                        File.WriteAllBytes("update_bck.xml", Document);
+                        XTEA.EncipherStreamPadNull(DecryptionKey, Document, out _result);
+                        Document = _result;
+                        File.WriteAllBytes(FilePath, Document);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error: {ex.Message}");
+                        return false;
+                    }
                 }
 
-                Buffer.BlockCopy(dataCut, srcOffset: 0, dst: dataResult, dstOffset: i, count: 8);
 
-                //If Decrypt fail ...
-                if (i == 0 && dataResult[0] != '<' && dataResult[1] != '?' && operacao == OperacaoEnum.Decrypt)
-                {
-                    return Result.Test_New_Key;
-                }
+                return true;
             }
-
-            Document = Encoding.GetEncoding("euc-kr").GetString(dataResult).Replace("\0", "");
-
-            update_data = Encoding.GetEncoding("euc-kr").GetBytes(Document);
-            return Result.Sucess;
-        }
-        public void SaveFile(OperacaoEnum operacao)
-        {
-            byte[] data = update_data;
-            var getcurrentdirectory = Directory.GetCurrentDirectory();
-            switch (operacao)
+            catch (Exception ex)
             {
-                case OperacaoEnum.Decrypt:
-                    File.WriteAllText(getcurrentdirectory + "\\updatelist_decrypt.xml", Document);
-                    break;
-                case OperacaoEnum.Encrypt:
-                    File.WriteAllBytes(getcurrentdirectory + "\\updatelist_encrypt", data);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void SaveFile(string CurrentDirectory,OperacaoEnum operacao)
-        {
-            byte[] data = update_data;
-            switch (operacao)
-            {
-                case OperacaoEnum.Decrypt:
-                    File.WriteAllBytes(CurrentDirectory + "\\updatelist_decrypt.xml", data);
-                    break;
-                case OperacaoEnum.Encrypt:
-                    File.WriteAllBytes(CurrentDirectory + "\\updatelist_encrypt", data);
-                    break;
-                default:
-                    break;
+                Debug.WriteLine(ex.Message);
+                return false;
             }
         }
     }
+
 }

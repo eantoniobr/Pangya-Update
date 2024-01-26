@@ -1,21 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using System.IO;
-using System.Diagnostics;
-using System.Threading;
-using System.Net.Cache;
-using System.Net;
-using System.Xml;
-using static PangyaAPI.UpdateList.UpdateList;
-using System.ComponentModel;
-using PangyaAPI.UpdateList.Data;
 using System.Runtime.InteropServices;
 
 namespace PangyaUpdate.Tools

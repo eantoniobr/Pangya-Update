@@ -5,15 +5,13 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaUpdate", "PangyaUpdate\PangyaUpdate.csproj", "{373B5AF2-0DCB-4F9A-9D51-3B0E0412F00E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.UpdateList", "..\PangyaAPI\PangyaAPI.UpdateList\PangyaAPI.UpdateList.csproj", "{CF0527ED-17C5-4AB7-BD8D-3F3B7B80A819}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.UpdateList", "PangyaAPI.UpdateList\PangyaAPI.UpdateList.csproj", "{CF0527ED-17C5-4AB7-BD8D-3F3B7B80A819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Utilities", "..\PangyaAPI\PangyaAPI.Utilities\PangyaAPI.Utilities.csproj", "{1E2BE994-1794-47CE-B66B-65F02D42570C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Utilities", "PangyaAPI.Utilities\PangyaAPI.Utilities.csproj", "{1E2BE994-1794-47CE-B66B-65F02D42570C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.ZIP", "..\PangyaAPI\PangyaAPI.ZIP\PangyaAPI.ZIP.csproj", "{71F94C7F-94E8-4AEB-963F-248FD4EE4E92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.ZIP", "PangyaAPI.ZIP\PangyaAPI.ZIP.csproj", "{71F94C7F-94E8-4AEB-963F-248FD4EE4E92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Memory", "..\..\..\Desktop\New Server\PangyaAPI\PangyaAPI.Memory\PangyaAPI.Memory.csproj", "{47FC3C53-7360-4161-8A93-8EACF2879E06}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Crc32", "..\PangyaAPI\PangyaAPI.Crc32\PangyaAPI.Crc32.csproj", "{EE3C5773-D461-4F1B-97CA-3C814AFCA789}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangyaAPI.Memory", "PangyaAPI.Memory\PangyaAPI.Memory.csproj", "{47FC3C53-7360-4161-8A93-8EACF2879E06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{47FC3C53-7360-4161-8A93-8EACF2879E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47FC3C53-7360-4161-8A93-8EACF2879E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47FC3C53-7360-4161-8A93-8EACF2879E06}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE3C5773-D461-4F1B-97CA-3C814AFCA789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE3C5773-D461-4F1B-97CA-3C814AFCA789}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE3C5773-D461-4F1B-97CA-3C814AFCA789}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE3C5773-D461-4F1B-97CA-3C814AFCA789}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

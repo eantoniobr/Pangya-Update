@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using static PangyaAPI.UpdateList.Patch;
+using static PangyaUpdate.Patcher;
 namespace PangyaUpdate
 {
     /// <summary>
@@ -15,80 +16,32 @@ namespace PangyaUpdate
     /// </summary>
     public partial class FrmMain : Form
     {
-        PangyaReg reg;     
+        public PangyaReg reg;
+
         public FrmMain()
         {
-            SetConfigUpdate();
-            InitializeComponent();            
+            InitializeComponent();
+            // Inicialize a instância de RecursiveFileProcessor
+            UpdateUnit = new UpdateUnit();
+            // Adicione o manipulador de eventos OnPatchProgress
+            UpdateUnit. OnProgressEvent += UpdateUnit.OnPatchProgress;
         }
-        private void OnPatchProgress(ProgressStatus status, string name = "", long progress = 0L, long size = 0L, int total_progress = 0, int max_progress = 1000)
-        {
-            Invoke((MethodInvoker)delegate
-            {
-                switch (status)
-                {
-                    case ProgressStatus.INITIAL:
-                        {
-                            BtnAbrirProjectG.Enabled = false;
-                            BtnResetPatch.Enabled = false;
-                            BarProcess.Maximum = max_progress;
-                            BarUpdate.Maximum = max_progress;
-                            lblPatchVer.Visible = true;
-                        }
-                        break;
-                    case ProgressStatus.RUN:
-                        {
-                            BarUpdate.SetState(3);
-                            lblPatchVer.Visible = true;
-                            lblPatchVer.Text = lblPatchVer.Text +" "+ patch_version;
-                            reg.CreateMainReg(patch_version, patch_num);//registra ou atualiza aqui :D
-                        }
-                        break;
-                    case ProgressStatus.VERIFYING:
-                        {
-                            //this.lbFile.Text = name ?? "";//fiz errado, aqui e so no caso de repatch
-                            this.BarProcess.Value = total_progress;
-                            this.BarUpdate.Value = total_progress + 1 > 1000 ? 1000 : total_progress + 1;
-                        }
-                        break;
-                    case ProgressStatus.DOWNLOADING:
-                        lbFile.Text = $"{name ?? ""}";
-                        if (size > 0)
-                        {
-                            this.BarProcess.Value = (total_progress);
-                            this.BarUpdate.Value = total_progress == 0 ? 0 : 300 + total_progress;
-                        }
-                        else
-                        {
-                            this.BarUpdate.Value = total_progress == 0 ? 0 : 300 + total_progress;
-                        }
-                        break;
-                    case ProgressStatus.DONE:
-                        BarProcess.Value = 1000;
-                        BarUpdate.Value = 1000;
-                        this.lbFile.Visible = false;
-                        BtnAbrirProjectG.Enabled = true;
-                        BtnResetPatch.Enabled = true;
-                        break;
-                    case ProgressStatus.UPDATE:
-                        {
-                            BarUpdate.Value += (total_progress);
-                            BarUpdate.Value = 0;
-                        }
-                        break;
-                }
-            });
-        }
-        
         private void Form1_Load(object sender, EventArgs e)
         {
             //carregar as configurações aqui:
-
+            this.BarUpdate.Value = 0;
+            this.BarProcess.Value = 0;
+            CheckForIllegalCrossThreadCalls = false;
+            this.lbProcessDesc.Text = "";
+            lbFile.Text = "";
             SetToolTips();
             reg = new PangyaReg();
-            GetPatchNum();//pega o numero do patch
-            Download();
-            OnProgressEvent += OnPatchProgress;//inicia o processo
+            if (reg.ExistRegMain()) 
+                lblPatchVer.Text = reg.getMainValue("Ver");
+
+            BtnAbrirProjectG.Enabled = false;
+            BtnResetPatch.Enabled = false;
+            timer2.Start();
         }
 
         private void BtnSair_Click(object sender, EventArgs e)
@@ -100,7 +53,7 @@ namespace PangyaUpdate
         {
             if (e.Button != MouseButtons.Left) return;
             var X = this.Left - MousePosition.X;
-           var Y = this.Top - MousePosition.Y;
+            var Y = this.Top - MousePosition.Y;
         }
         private void FrmMain_MouseMove(object sender, MouseEventArgs e)
         {
@@ -119,7 +72,7 @@ namespace PangyaUpdate
 
         private void BtnResetPatch_Click(object sender, EventArgs e)
         {
-            RePatch();//tenta baixar tudo novamente(somente arquivos novos!)             
+            UpdateUnit.RePatch();//tenta baixar tudo novamente(somente arquivos novos!)             
         }
         //aqqui eu abro o app
         private void BtnAbrirProjectG_Click(object sender, EventArgs e)
@@ -202,7 +155,7 @@ namespace PangyaUpdate
             }
             //Download();//aqui inicia o dl(versao nova)
         }
-       
+
         private void _MouseLeave(object sender, EventArgs e)
         {
             toolTip1.Active = false;
@@ -225,16 +178,12 @@ namespace PangyaUpdate
             tooltip.ReshowDelay = 500;   // Tempo em milissegundos antes de exibir novamente o tooltip
             tooltip.BackColor = Color.Yellow; // Cor de fundo do tooltip
             tooltip.ForeColor = Color.Black;  // Cor do texto do tooltip
-            // tooltip.ToolTipTitle = "Dica";   // Título do tooltip
-
-            // Outras propriedades disponíveis para personalizar a aparência do tooltip
-            // tooltip.UseAnimation, tooltip.UseFading, tooltip.IsBalloon, etc.
         }
 
         //criar local clickavel :D
         private void FrmMain_MouseHover(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("size=> {0};{1}", MousePosition.X, MousePosition.Y);
+            Debug.WriteLine("size=> {0};{1}", MousePosition.X, MousePosition.Y);
             if (MousePosition.X == 436)
             {
                 if (MousePosition.Y > 339)
@@ -316,6 +265,22 @@ namespace PangyaUpdate
 
             g.DrawPath(new Pen(ForeColor), path);
             g.Dispose();
+        }
+
+        private void TimeUpdate_Tick(object sender, EventArgs e)
+        {
+            lblPatchVer.Visible = true;
+            UpdateUnit. SetValues(BarProcess, BarUpdate, lbProcessDesc, lblPatchVer, lbFile, BtnAbrirProjectG, BtnResetPatch);
+            UpdateUnit.DownloadUpdateList();
+            timer2.Stop();
+        }
+
+        private void BtnAbrirProjectG_VisibleChanged(object sender, EventArgs e)
+        {
+            if (!BtnAbrirProjectG.Enabled) //mudar a cor do botao
+            {
+                BtnAbrirProjectG.BackgroundImage = Properties.Resources.Jogar2_OFF;
+            }
         }
     }
 }

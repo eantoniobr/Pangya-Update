@@ -1,5 +1,7 @@
-﻿using PangyaAPI.UpdateList;
+﻿using System.Net.Sockets;
+using System.Numerics;
 using System.Windows.Forms;
+using static PangyaUpdate.Patcher;
 
 namespace PangyaUpdate
 {
@@ -36,10 +38,10 @@ namespace PangyaUpdate
             this.BarUpdate = new System.Windows.Forms.ProgressBar();
             this.BarProcess = new System.Windows.Forms.ProgressBar();
             this.BtnReport = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbFile = new System.Windows.Forms.Label();
             this.Banner = new System.Windows.Forms.WebBrowser();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.lbFile = new System.Windows.Forms.Label();
+            this.lbProcessDesc = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
@@ -93,24 +95,27 @@ namespace PangyaUpdate
             this.BtnReport.Paint += new System.Windows.Forms.PaintEventHandler(this.BtnPaint);
             this.BtnReport.MouseLeave += new System.EventHandler(this._MouseLeave);
             // 
-            // label2
+            // lbFile
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.ForeColor = System.Drawing.Color.Cyan;
-            this.label2.Location = new System.Drawing.Point(304, 424);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 13);
-            this.label2.TabIndex = 10;
+            this.lbFile.AutoSize = true;
+            this.lbFile.BackColor = System.Drawing.Color.Transparent;
+            this.lbFile.ForeColor = System.Drawing.Color.Cyan;
+            this.lbFile.Location = new System.Drawing.Point(347, 422);
+            this.lbFile.Name = "lbFile";
+            this.lbFile.Size = new System.Drawing.Size(15, 13);
+            this.lbFile.TabIndex = 10;
+            this.lbFile.Text = "dl";
             // 
             // Banner
             // 
-            this.Banner.Location = new System.Drawing.Point(334, 51);
+            this.Banner.Location = new System.Drawing.Point(337, 52);
             this.Banner.MinimumSize = new System.Drawing.Size(20, 20);
             this.Banner.Name = "Banner";
-            this.Banner.Size = new System.Drawing.Size(362, 264);
+            this.Banner.ScriptErrorsSuppressed = true;
+            this.Banner.ScrollBarsEnabled = false;
+            this.Banner.Size = new System.Drawing.Size(356, 260);
             this.Banner.TabIndex = 12;
-            this.Banner.Url = new System.Uri(Patch.Notice, System.UriKind.Absolute);
+            this.Banner.Url = new System.Uri("http://gameraze.com.br/Notes/Patcher", System.UriKind.Absolute);
             // 
             // linkLabel1
             // 
@@ -120,20 +125,26 @@ namespace PangyaUpdate
             this.linkLabel1.Size = new System.Drawing.Size(0, 13);
             this.linkLabel1.TabIndex = 18;
             // 
-            // lbFile
+            // lbProcessDesc
             // 
-            this.lbFile.AutoSize = true;
-            this.lbFile.BackColor = System.Drawing.Color.Transparent;
-            this.lbFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFile.ForeColor = System.Drawing.Color.Blue;
-            this.lbFile.Location = new System.Drawing.Point(302, 393);
-            this.lbFile.Name = "lbFile";
-            this.lbFile.Size = new System.Drawing.Size(0, 13);
-            this.lbFile.TabIndex = 19;
+            this.lbProcessDesc.AutoSize = true;
+            this.lbProcessDesc.BackColor = System.Drawing.Color.Transparent;
+            this.lbProcessDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProcessDesc.ForeColor = System.Drawing.Color.Blue;
+            this.lbProcessDesc.Location = new System.Drawing.Point(309, 392);
+            this.lbProcessDesc.Name = "lbProcessDesc";
+            this.lbProcessDesc.Size = new System.Drawing.Size(20, 13);
+            this.lbProcessDesc.TabIndex = 19;
+            this.lbProcessDesc.Text = "file";
             // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Interval = 300;
+            this.timer2.Tick += new System.EventHandler(this.TimeUpdate_Tick);
             // 
             // BtnLogo
             // 
@@ -219,6 +230,7 @@ namespace PangyaUpdate
             this.BtnAbrirProjectG.Size = new System.Drawing.Size(98, 62);
             this.BtnAbrirProjectG.TabIndex = 24;
             this.BtnAbrirProjectG.UseVisualStyleBackColor = false;
+            this.BtnAbrirProjectG.VisibleChanged += new System.EventHandler(this.BtnAbrirProjectG_VisibleChanged);
             this.BtnAbrirProjectG.Click += new System.EventHandler(this.BtnAbrirProjectG_Click);
             // 
             // BtnSair
@@ -242,11 +254,12 @@ namespace PangyaUpdate
             // 
             this.lblPatchVer.AutoSize = true;
             this.lblPatchVer.BackColor = System.Drawing.Color.Transparent;
-            this.lblPatchVer.Font = new System.Drawing.Font("Microsoft JhengHei UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPatchVer.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblPatchVer.Location = new System.Drawing.Point(248, 9);
+            this.lblPatchVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblPatchVer.Font = new System.Drawing.Font("Arial Black", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPatchVer.ForeColor = System.Drawing.Color.Transparent;
+            this.lblPatchVer.Location = new System.Drawing.Point(574, 9);
             this.lblPatchVer.Name = "lblPatchVer";
-            this.lblPatchVer.Size = new System.Drawing.Size(79, 10);
+            this.lblPatchVer.Size = new System.Drawing.Size(91, 11);
             this.lblPatchVer.TabIndex = 26;
             this.lblPatchVer.Text = "Pangya Update Ver ";
             this.lblPatchVer.Visible = false;
@@ -266,10 +279,10 @@ namespace PangyaUpdate
             this.Controls.Add(this.BtnSafeMode);
             this.Controls.Add(this.BtnResetPatch);
             this.Controls.Add(this.BtnLogo);
-            this.Controls.Add(this.lbFile);
+            this.Controls.Add(this.lbProcessDesc);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.Banner);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbFile);
             this.Controls.Add(this.BtnReport);
             this.Controls.Add(this.BarProcess);
             this.Controls.Add(this.BarUpdate);
@@ -281,7 +294,7 @@ namespace PangyaUpdate
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Pangya Launcher";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.FrmMain_Shown);
@@ -296,23 +309,24 @@ namespace PangyaUpdate
 
         #endregion
 
-        private ProgressBar BarUpdate;
-        private ProgressBar BarProcess;
-        private Button BtnReport;
-        private Label label2;
-        private WebBrowser Banner;
-        private LinkLabel linkLabel1;
-        private Label lbFile;
-        private Timer timer1;
-        private ToolTip toolTip1;
-        private Timer timer2;
-        private Button BtnLogo;
-        private Button BtnResetPatch;
-        private Button BtnOptions;
-        private Button BtnSafeMode;
-        private Button BtnAbrirProjectG;
-        private Button BtnSair;
-        private Label lblPatchVer;
+        public ProgressBar BarUpdate;
+        public ProgressBar BarProcess;
+        public Button BtnReport;
+        public Label lbFile;
+        public WebBrowser Banner;
+        public LinkLabel linkLabel1;
+        public Label lbProcessDesc;
+        public Timer timer1;
+        public ToolTip toolTip1;
+        public Timer timer2;
+        public Button BtnLogo;
+        public Button BtnResetPatch;
+        public Button BtnOptions;
+        public Button BtnSafeMode;
+        public Button BtnAbrirProjectG;
+        public Button BtnSair;
+        public Label lblPatchVer;
+        private UpdateUnit UpdateUnit;
     }
 }
 

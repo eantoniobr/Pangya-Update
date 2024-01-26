@@ -173,9 +173,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Jogar3 {
+        internal static System.Drawing.Bitmap Jogar2_OFF {
             get {
-                object obj = ResourceManager.GetObject("Jogar3", resourceCulture);
+                object obj = ResourceManager.GetObject("Jogar2_OFF", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,9 +233,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Sair3 {
+        internal static System.Drawing.Bitmap Sair2_OFF {
             get {
-                object obj = ResourceManager.GetObject("Sair3", resourceCulture);
+                object obj = ResourceManager.GetObject("Sair2_OFF", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

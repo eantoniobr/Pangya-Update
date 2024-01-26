@@ -152,7 +152,10 @@ namespace PangyaUpdate
         }
         public string getMainValue(string key)
         {
-            return Convert.ToString(Main.GetValue(key));
+            var _obj = Main.GetValue(key);
+            if (_obj == null && key == "Ver") _obj = "Pangya Update Ver";
+
+            return Convert.ToString(_obj);
         }
 
         public string setOptValue(string key, string value)
