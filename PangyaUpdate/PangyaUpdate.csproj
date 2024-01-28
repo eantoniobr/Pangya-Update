@@ -7,7 +7,7 @@
     <ProjectGuid>{373B5AF2-0DCB-4F9A-9D51-3B0E0412F00E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>PangyaUpdate</RootNamespace>
-    <AssemblyName>PangyaUpdate</AssemblyName>
+    <AssemblyName>Update</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\Pangya_US\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\Pangya_US\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -69,7 +69,6 @@
     <Compile Include="FrmReport.Designer.cs">
       <DependentUpon>FrmReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyForm.cs" />
     <Compile Include="PangyaReg.cs" />
     <Compile Include="Patcher.cs" />
     <Compile Include="Program.cs" />
@@ -80,7 +79,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UpdateUnit.cs" />
-    <Compile Include="Tools\Crypto.cs" />
     <Compile Include="Tools\Utils.cs" />
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
@@ -96,9 +94,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Config.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -169,6 +164,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="Resources\BtnSeguro_OK.bmp" />
+    <None Include="Resources\BtnSeguro_Click.bmp" />
+    <None Include="Resources\BtnSeguro_Block.bmp" />
+    <None Include="Resources\BtnSair_OK.bmp" />
+    <None Include="Resources\BtnSair_Click.bmp" />
+    <None Include="Resources\BtnSair_Block.bmp" />
+    <None Include="Resources\BtnReset_OK.bmp" />
+    <None Include="Resources\BtnReset_Click.bmp" />
+    <None Include="Resources\BtnReset_Block.bmp" />
+    <None Include="Resources\BtnReportar_OK.bmp" />
+    <None Include="Resources\BtnReportar_Click.bmp" />
+    <None Include="Resources\BtnReportar_Block.bmp" />
+    <None Include="Resources\BtnOpt_OK.bmp" />
+    <None Include="Resources\BtnOpt_Click.bmp" />
+    <None Include="Resources\BtnOpt_Block.bmp" />
+    <None Include="Resources\BtnJogar_OK.bmp" />
+    <None Include="Resources\BtnJogar_Click.bmp" />
+    <None Include="Resources\BtnJogar_Block.bmp" />
+    <None Include="Resources\Bitmap140.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PangyaAPI.Memory\PangyaAPI.Memory.csproj">

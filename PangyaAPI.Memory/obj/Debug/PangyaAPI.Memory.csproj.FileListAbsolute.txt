@@ -1,6 +1,0 @@
-C:\Users\LENOVO\Desktop\New Server\PangyaAPI\PangyaAPI.Memory\obj\Debug\PangyaAPI.Memory.csproj.AssemblyReference.cache
-C:\Users\LENOVO\Desktop\New Server\PangyaAPI\PangyaAPI.Memory\obj\Debug\PangyaAPI.Memory.csproj.CoreCompileInputs.cache
-C:\Users\LENOVO\Desktop\New Server\PangyaAPI\PangyaAPI.Memory\bin\Debug\PangyaAPI.Memory.dll
-C:\Users\LENOVO\Desktop\New Server\PangyaAPI\PangyaAPI.Memory\bin\Debug\PangyaAPI.Memory.pdb
-C:\Users\LENOVO\Desktop\New Server\PangyaAPI\PangyaAPI.Memory\obj\Debug\PangyaAPI.Memory.dll
-C:\Users\LENOVO\Desktop\New Server\PangyaAPI\PangyaAPI.Memory\obj\Debug\PangyaAPI.Memory.pdb

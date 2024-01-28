@@ -4,6 +4,7 @@ using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -211,6 +212,22 @@ namespace PangyaAPI.UpdateList
         {
             return Files.Where(c => c.Name == name).First();
         }
+
+        public List<FileItem> getFileExists(bool exist = true)
+        {
+            var Temp = new List<FileItem>();
+            var directoryTemp = Directory.GetCurrentDirectory();
+            foreach (var item in Files)
+            {
+                string text = item.Name;
+                string text2 = item.Dir;
+                string path = string.IsNullOrEmpty(text2) ? directoryTemp + "\\" + text : directoryTemp + text2 + "\\" + text;
+
+                if (File.Exists(path) == exist)
+                    Temp.Add(item);
+            }
+            return Temp;
+        }
         public XmlSchema GetSchema()
         {
             return null;
@@ -277,7 +294,7 @@ namespace PangyaAPI.UpdateList
 
         [XmlAttribute("psize")]
         public long PSize { get; set; }
-
+                              
         public XmlSchema GetSchema()
         {
             return null;
@@ -289,8 +306,9 @@ namespace PangyaAPI.UpdateList
             Dir = fileName.GetAttribute("fdir");
             Size = long.Parse(fileName.GetAttribute("fsize"));
             Crc = int.Parse(fileName.GetAttribute("fcrc"));
-            Date = DateTime.Parse(fileName.GetAttribute("fdate"));
-            Time = DateTime.Parse(fileName.GetAttribute("ftime"));
+            var date = fileName.GetAttribute("fdate") + " " +fileName.GetAttribute("ftime");
+            Date = DateTime.Parse(date);
+            Time = DateTime.Parse(date);
             PName = fileName.GetAttribute("pname");//compression
             PSize = long.Parse(fileName.GetAttribute("psize"));//compression
             fileName.Read(); // ler o proximo
@@ -392,7 +410,7 @@ namespace PangyaAPI.UpdateList
                     xmlString = xmlString.ToStringXML();
                 }
                 item.ReadXml(XElement.Parse(xmlString).CreateReader());
-
+                item.UpdateFiles.Files= item.UpdateFiles.Files.OrderBy(c => c.Dir == "").ToList();
                 return item;
             }
             catch (Exception ex)
@@ -605,15 +623,27 @@ namespace PangyaAPI.UpdateList
         public static DateTime GetDate(this DateTime old, int hour)
         {
             var now = new DateTime(
-                DateTime.Now.Year,
-                DateTime.Now.Month,
-                DateTime.Now.Day,
-                old.Hour,
+                old.Year,
+                old.Month,
+                old.Day,
+                old.Hour - hour,
                 old.Minute,
                 old.Second,
                 old.Millisecond
-            ).AddHours(hour);
+            );
             return now;
+        }
+
+        public static bool Verify(this DateTime tempoA, DateTime tempoB)
+        {
+            // Obter a diferença entre os fusos horários (em TimeSpan)
+            TimeSpan diferenca_fusos_horarios = tempoB - tempoA;
+
+            // Ajustar o tempo em A para o mesmo fuso horário que B
+           tempoA = tempoA + diferenca_fusos_horarios;
+            var date = (tempoA.Month == tempoB.Month && tempoA.Day == tempoB.Day && tempoA.Year == tempoB.Year);
+            var time = (tempoA.Hour == tempoB.Hour && tempoA.Minute == tempoB.Minute);
+            return date && time;
         }
     }
 }

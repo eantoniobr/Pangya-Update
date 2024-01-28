@@ -118,58 +118,64 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BtnResetPatch" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BtnResetPatch.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="launcher_base" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\launcher_base.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Jogar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Jogar2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Bitmap140" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bitmap140.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BtnAbrirProjectG" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BtnAbrirProjectG.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnJogar_Block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnJogar_Block.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Fundo2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fundo2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnJogar_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnJogar_Click.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Jogar2_OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Jogar3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnJogar_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnJogar_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="novo update" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\novo update.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnOpt_Block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnOpt_Block.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BtnSafeMode" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BtnSafeMode.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnOpt_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnOpt_Click.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BtnReport" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BtnReport.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnOpt_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnOpt_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="my Update1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\my Update.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnReportar_Block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnReportar_Block.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sair2_OFF" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sair3.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnReportar_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnReportar_Click.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BtnSair" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BtnSair.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnReportar_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnReportar_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BtnOptions" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BtnOptions.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnReset_Block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnReset_Block.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Fundo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fundo.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnReset_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnReset_Click.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="my Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\my Update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnReset_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnReset_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sair2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sair2.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnSair_Block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnSair_Block.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Bitmap143" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bitmap143.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BtnSair_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnSair_Click.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BtnSair_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnSair_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BtnSeguro_Block" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnSeguro_Block.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BtnSeguro_Click" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnSeguro_Click.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BtnSeguro_OK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BtnSeguro_OK.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

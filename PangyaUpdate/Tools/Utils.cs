@@ -230,6 +230,26 @@ namespace PangyaUpdate.Tools
             PastaGrafica.SetMarkers();
             pButton.Region = new Region(PastaGrafica);
         }
+
+        /// <summary>
+        /// gera um data nova
+        /// </summary>
+        /// <param name="old">data antiga</param>
+        /// <param name="hour">adiciona o tempo</param>
+        /// <returns></returns>
+        public static DateTime GetDate(this DateTime old, int hour)
+        {
+            var now = new DateTime(
+                old.Year,
+                old.Month,
+                old.Day,
+                old.Hour - hour,
+                old.Minute,
+                old.Second,
+                old.Millisecond
+            );
+            return now;
+        }
     }
 
     #endregion

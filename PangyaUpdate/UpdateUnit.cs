@@ -1,6 +1,5 @@
 ﻿using PangyaAPI.UpdateList;
 using PangyaUpdate.Tools;
-using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,10 +10,10 @@ namespace PangyaUpdate
     {
         private int count;
 
-        public void OnPatchProgress(ProgressBar barProcess, ProgressBar barUpdate, Label lbProcessDesc, Label lblPatchVer, Label lbFile)
+        public void OnPatchProgress(ProgressBar barProcess, ProgressBar barUpdate, Label lbProcessDesc, Label lblPatchVer)
         {
-            var directoryTemp = Path.GetTempPath();
-            var getCurrentDirectory = Directory.GetCurrentDirectory();
+            var getCurrentDirectory = Path.GetTempPath();
+            var directoryTemp = Directory.GetCurrentDirectory();
             long bar = 0;
             count = 0;
             var reg = new PangyaReg();
@@ -22,7 +21,8 @@ namespace PangyaUpdate
             string patchVer = "0";
             // UI Control
             barProcess.Invoke((MethodInvoker)delegate { barProcess.Minimum = barProcess.Minimum; });
-            lblPatchVer.Invoke((MethodInvoker)delegate { lblPatchVer.Text = $"Ver {patch_version} Update "/*coloque aqui a informação necessária*/; });
+            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Minimum = barProcess.Minimum; });
+            lblPatchVer.Invoke((MethodInvoker)delegate { lblPatchVer.Text = $"Ver {patch_version} Update "; });
             if (reg.ExistRegMain())
             {
                 _patchNum = uint.Parse(reg.getMainValue("PatchNum"));
@@ -36,193 +36,76 @@ namespace PangyaUpdate
                     reg.CreateMainReg(patch_version, patch_num);//registra ou atualiza aqui :D
                 }
             }
-            if (_patchNum != patch_num)
+
+            if (_patchNum != patch_num || patchVer != patch_version)
             {
                 foreach (var item in UpdateListInfo.UpdateFiles.Files)
                 {
                     // UI Control
                     barProcess.Invoke((MethodInvoker)delegate { barProcess.Value = ++count; });
-
                     lbProcessDesc.Invoke((MethodInvoker)delegate { lbProcessDesc.Text = item.Name; });
-
-                    var fileInfo = item;
-                    string text = fileInfo.Name;
-                    string text2 = fileInfo.Dir;
-                    long size = fileInfo.Size;
-                    int crcUpt = fileInfo.Crc;
-
-                    string path = string.IsNullOrEmpty(text2) ? getCurrentDirectory + "\\" + text : getCurrentDirectory + "\\" + text2 + "\\" + text;
-
+                    string path = string.IsNullOrEmpty(item.Dir) ? directoryTemp +  "\\" + item.Name : directoryTemp + item.Dir + "\\" + item.Name;
                     if (File.Exists(path))
                     {
                         var FileInfo = new FileInfo(path);
-                        var crcFile = path.getCrcFile();
-                        if ((FileInfo.LastWriteTime.Month != item.Date.Month && FileInfo.CreationTimeUtc.Day != item.Date.Day && FileInfo.CreationTimeUtc.Year != item.Date.Year))
+
+                        var LastWriteTimeUtc = FileInfo.CreationTime;
+                        if (!LastWriteTimeUtc.Verify(item.Date) || FileInfo.Length != item.Size/* || item.Crc != path.getCrcFile()*/)
                         {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else if (FileInfo.Length != size)
-                        {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else if (crcUpt != crcFile)
-                        {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else
-                        {
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = ""/*coloque aqui o texto necessário*/; });
-                            Debug.WriteLine($"Success: {fileInfo.Name}");
+                            DownloadFile(item.Dir.Replace("\\", ""), path, item.Name, item.Size, out bar, item.Date);                             
+                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = 1000; });
                         }
                     }
                     else
                     {
-                        DownloadFile(path, directoryTemp, text, size, out bar);
-                        Debug.WriteLine($"Success: {fileInfo.Name}");
-                        // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                        barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                        lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
+                        DownloadFile(item.Dir.Replace("\\", ""), path, item.Name, item.Size, out bar, item.Date);
+                        Debug.WriteLine($"Success: {item.Name}");
+                        barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = 1000; });
                     }
                 }
-            }
-            else if (patchVer != patch_version)
-            {
-                foreach (var item in UpdateListInfo.UpdateFiles.Files)
-                {
-                    // UI Control
-                    barProcess.Invoke((MethodInvoker)delegate { barProcess.Value = ++count; });
-
-                    lbProcessDesc.Invoke((MethodInvoker)delegate { lbProcessDesc.Text = item.Name; });
-
-                    var fileInfo = item;
-                    string text = fileInfo.Name;
-                    string text2 = fileInfo.Dir;
-                    long size = fileInfo.Size;
-                    int crcUpt = fileInfo.Crc;
-
-                    string path = string.IsNullOrEmpty(text2) ? getCurrentDirectory + "\\" + text : getCurrentDirectory + "\\" + text2 + "\\" + text;
-
-                    if (File.Exists(path))
-                    {
-                        var FileInfo = new FileInfo(path);
-                        var crcFile = path.getCrcFile();
-                        if ((FileInfo.LastWriteTime.Month != item.Date.Month && FileInfo.CreationTimeUtc.Day != item.Date.Day && FileInfo.CreationTimeUtc.Year != item.Date.Year))
-                        {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else if (FileInfo.Length != size)
-                        {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else if (crcUpt != crcFile)
-                        {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else
-                        {
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = ""/*coloque aqui o texto necessário*/; });
-                            Debug.WriteLine($"Success: {fileInfo.Name}");
-                        }
-                    }
-                    else
-                    {
-                        DownloadFile(path, directoryTemp, text, size, out bar);
-                        Debug.WriteLine($"Success: {fileInfo.Name}");
-                        // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                        barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                        lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                    }
-                }
-
             }
             else
             {
-                foreach (var item in UpdateListInfo.UpdateFiles.Files.Where(c => c.Name != "projectg700gb+.pak"))
+                foreach (var item in UpdateListInfo.UpdateFiles.Files.Where(c => c.Name != "projectg700gb+.pak").Where(c => c.Name != "update.exe"))
                 {
+                    barUpdate.SetState(1);
+                    barProcess.SetState(2);
                     // UI Control
                     barProcess.Invoke((MethodInvoker)delegate { barProcess.Value = ++count; });
 
                     lbProcessDesc.Invoke((MethodInvoker)delegate { lbProcessDesc.Text = item.Name; });
-
                     var fileInfo = item;
                     string text = fileInfo.Name;
                     string text2 = fileInfo.Dir;
                     long size = fileInfo.Size;
                     int crcUpt = fileInfo.Crc;
-                    string path = string.IsNullOrEmpty(text2) ? getCurrentDirectory + "\\" + text : getCurrentDirectory + "\\" + text2 + "\\" + text;
+                    string path = string.IsNullOrEmpty(text2) ? directoryTemp +  "\\" + text : directoryTemp + text2 + "\\" + text;
                     if (File.Exists(path))
                     {
                         var FileInfo = new FileInfo(path);
-                        var crcFile = path.getCrcFile();
-                        if ((FileInfo.LastWriteTime.Month != item.Date.Month && FileInfo.CreationTimeUtc.Day != item.Date.Day && FileInfo.CreationTimeUtc.Year != item.Date.Year))
+                        var LastWriteTimeUtc = FileInfo.CreationTime;
+                        if (!LastWriteTimeUtc.Verify(item.Date) || FileInfo.Length != item.Size/* || item.Crc != path.getCrcFile()*/)
                         {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else if (FileInfo.Length != size)
-                        {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else if (crcUpt != crcFile)
-                        {
-                            DownloadFile(path, directoryTemp, text, size, out bar);
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
-                        }
-                        else
-                        {
-                            // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                            lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = ""/*coloque aqui o texto necessário*/; });
-                            Debug.WriteLine($"Success: {fileInfo.Name}");
+                            DownloadFile(item.Dir.Replace("\\", ""), path, item.Name, item.Size, out bar, item.Date);
+                            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = 1000; });
                         }
                     }
                     else
                     {
-                        DownloadFile(path, directoryTemp, text, size, out bar);
-                        Debug.WriteLine($"Success: {fileInfo.Name}");
-                        // Atualizar BarUpdate, lblPatchVer, lbFile conforme necessário
-                        barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = (int)bar /*coloque aqui o valor de progresso necessário*/; });
-                        lbFile.Invoke((MethodInvoker)delegate { lbFile.Text = text/*coloque aqui o texto necessário*/; });
+                        DownloadFile(text2.Replace("\\", ""), path, text, size, out bar, item.Date);
+                        Debug.WriteLine($"Success: {fileInfo.Name}");                           
+                        barUpdate.Invoke((MethodInvoker)delegate { barProcess.Value = 1000; });
                     }
                 }
             }
 
             BtnAbrirProjectG.Enabled = true;
             BtnResetPatch.Enabled = true;
-            barProcess.Value = 1000;
-            barUpdate.Value = 1000;
-            lbFile.Visible = false;
+            barProcess.Invoke((MethodInvoker)delegate { barProcess.Value = 1000; });
+            barUpdate.Invoke((MethodInvoker)delegate { barUpdate.Value = 1000; });
             lbProcessDesc.Text = "";
-            BtnAbrirProjectG.BackgroundImage = Properties.Resources.BtnAbrirProjectG;
-        }
+            BtnAbrirProjectG.BackgroundImage = Properties.Resources.BtnJogar_OK;
+        }                
+
     }
 }

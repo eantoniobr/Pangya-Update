@@ -63,9 +63,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Bitmap143 {
+        internal static System.Drawing.Bitmap Bitmap140 {
             get {
-                object obj = ResourceManager.GetObject("Bitmap143", resourceCulture);
+                object obj = ResourceManager.GetObject("Bitmap140", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BtnAbrirProjectG {
+        internal static System.Drawing.Bitmap BtnJogar_Block {
             get {
-                object obj = ResourceManager.GetObject("BtnAbrirProjectG", resourceCulture);
+                object obj = ResourceManager.GetObject("BtnJogar_Block", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BtnOptions {
+        internal static System.Drawing.Bitmap BtnJogar_Click {
             get {
-                object obj = ResourceManager.GetObject("BtnOptions", resourceCulture);
+                object obj = ResourceManager.GetObject("BtnJogar_Click", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BtnReport {
+        internal static System.Drawing.Bitmap BtnJogar_OK {
             get {
-                object obj = ResourceManager.GetObject("BtnReport", resourceCulture);
+                object obj = ResourceManager.GetObject("BtnJogar_OK", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BtnResetPatch {
+        internal static System.Drawing.Bitmap BtnOpt_Block {
             get {
-                object obj = ResourceManager.GetObject("BtnResetPatch", resourceCulture);
+                object obj = ResourceManager.GetObject("BtnOpt_Block", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BtnSafeMode {
+        internal static System.Drawing.Bitmap BtnOpt_Click {
             get {
-                object obj = ResourceManager.GetObject("BtnSafeMode", resourceCulture);
+                object obj = ResourceManager.GetObject("BtnOpt_Click", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BtnSair {
+        internal static System.Drawing.Bitmap BtnOpt_OK {
             get {
-                object obj = ResourceManager.GetObject("BtnSair", resourceCulture);
+                object obj = ResourceManager.GetObject("BtnOpt_OK", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Fundo {
+        internal static System.Drawing.Bitmap BtnReportar_Block {
             get {
-                object obj = ResourceManager.GetObject("Fundo", resourceCulture);
+                object obj = ResourceManager.GetObject("BtnReportar_Block", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,109 @@ namespace PangyaUpdate.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Fundo2 {
+        internal static System.Drawing.Bitmap BtnReportar_Click {
             get {
-                object obj = ResourceManager.GetObject("Fundo2", resourceCulture);
+                object obj = ResourceManager.GetObject("BtnReportar_Click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnReportar_OK {
+            get {
+                object obj = ResourceManager.GetObject("BtnReportar_OK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnReset_Block {
+            get {
+                object obj = ResourceManager.GetObject("BtnReset_Block", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnReset_Click {
+            get {
+                object obj = ResourceManager.GetObject("BtnReset_Click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnReset_OK {
+            get {
+                object obj = ResourceManager.GetObject("BtnReset_OK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnSair_Block {
+            get {
+                object obj = ResourceManager.GetObject("BtnSair_Block", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnSair_Click {
+            get {
+                object obj = ResourceManager.GetObject("BtnSair_Click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnSair_OK {
+            get {
+                object obj = ResourceManager.GetObject("BtnSair_OK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnSeguro_Block {
+            get {
+                object obj = ResourceManager.GetObject("BtnSeguro_Block", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnSeguro_Click {
+            get {
+                object obj = ResourceManager.GetObject("BtnSeguro_Click", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BtnSeguro_OK {
+            get {
+                object obj = ResourceManager.GetObject("BtnSeguro_OK", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -157,86 +257,6 @@ namespace PangyaUpdate.Properties {
             get {
                 object obj = ResourceManager.GetObject("Icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Jogar2 {
-            get {
-                object obj = ResourceManager.GetObject("Jogar2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Jogar2_OFF {
-            get {
-                object obj = ResourceManager.GetObject("Jogar2_OFF", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap launcher_base {
-            get {
-                object obj = ResourceManager.GetObject("launcher_base", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap my_Update {
-            get {
-                object obj = ResourceManager.GetObject("my Update", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap my_Update1 {
-            get {
-                object obj = ResourceManager.GetObject("my Update1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap novo_update {
-            get {
-                object obj = ResourceManager.GetObject("novo update", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Sair2 {
-            get {
-                object obj = ResourceManager.GetObject("Sair2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Sair2_OFF {
-            get {
-                object obj = ResourceManager.GetObject("Sair2_OFF", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

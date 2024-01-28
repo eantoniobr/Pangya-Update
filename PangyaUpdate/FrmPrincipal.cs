@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,6 +22,8 @@ namespace PangyaUpdate
         public FrmMain()
         {
             InitializeComponent();
+            BarUpdate.SetState(1);
+            BarProcess.SetState(2);
             // Inicialize a instância de RecursiveFileProcessor
             UpdateUnit = new UpdateUnit();
             // Adicione o manipulador de eventos OnPatchProgress
@@ -33,12 +36,12 @@ namespace PangyaUpdate
             this.BarProcess.Value = 0;
             CheckForIllegalCrossThreadCalls = false;
             this.lbProcessDesc.Text = "";
-            lbFile.Text = "";
             SetToolTips();
             reg = new PangyaReg();
             if (reg.ExistRegMain()) 
-                lblPatchVer.Text = reg.getMainValue("Ver");
+                lblPatchVer.Text = $"Ver ({reg.getMainValue("Ver")})";
 
+            this.Banner.Url = new System.Uri(UpdateUnit.Notice, System.UriKind.Absolute);
             BtnAbrirProjectG.Enabled = false;
             BtnResetPatch.Enabled = false;
             timer2.Start();
@@ -72,7 +75,15 @@ namespace PangyaUpdate
 
         private void BtnResetPatch_Click(object sender, EventArgs e)
         {
-            UpdateUnit.RePatch();//tenta baixar tudo novamente(somente arquivos novos!)             
+            // Restart and run as admin
+            var exeName = Process.GetCurrentProcess().MainModule.FileName;
+            ProcessStartInfo startInfo = new ProcessStartInfo(exeName)
+            {
+                Verb = "runas",
+                Arguments = "restart"
+            };
+            Process.Start(startInfo);
+            Application.Exit();
         }
         //aqqui eu abro o app
         private void BtnAbrirProjectG_Click(object sender, EventArgs e)
@@ -218,6 +229,18 @@ namespace PangyaUpdate
 
             // Cria uma região a partir do caminho para definir a forma do botão
             button.Region = new Region(path);
+            path = new GraphicsPath();
+            borderRadius = 8; // Valor para controlar o raio dos cantos arredondados
+
+            // Cria um retângulo com os mesmos limites do formulário
+            rectangle = new Rectangle(0, 0, Banner.Width, Banner.Height);
+
+            // Adiciona um arco para cada canto do retângulo
+            path.AddArc(rectangle.X, rectangle.Y, borderRadius, borderRadius, 180, 90);
+            path.AddArc(rectangle.Width - borderRadius, rectangle.Y, borderRadius, borderRadius, 270, 90);
+            path.AddArc(rectangle.Width - borderRadius, rectangle.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+            path.AddArc(rectangle.X, rectangle.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+            Banner.Region = new Region(path);
         }
 
         private void FrmMain_Paint(object sender, PaintEventArgs e)
@@ -270,7 +293,7 @@ namespace PangyaUpdate
         private void TimeUpdate_Tick(object sender, EventArgs e)
         {
             lblPatchVer.Visible = true;
-            UpdateUnit. SetValues(BarProcess, BarUpdate, lbProcessDesc, lblPatchVer, lbFile, BtnAbrirProjectG, BtnResetPatch);
+            UpdateUnit.SetValues(BarProcess, BarUpdate, lbProcessDesc, lblPatchVer, BtnAbrirProjectG, BtnResetPatch);
             UpdateUnit.DownloadUpdateList();
             timer2.Stop();
         }
@@ -279,7 +302,7 @@ namespace PangyaUpdate
         {
             if (!BtnAbrirProjectG.Enabled) //mudar a cor do botao
             {
-                BtnAbrirProjectG.BackgroundImage = Properties.Resources.Jogar2_OFF;
+                BtnAbrirProjectG.BackgroundImage = Properties.Resources.BtnJogar_Block;
             }
         }
     }

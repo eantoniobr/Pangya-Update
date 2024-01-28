@@ -21,94 +21,94 @@ namespace PangyaUpdate
            
             //verificar antes se tem as chaves do app.exe, se tem ou nao,
             string subkey = "SOFTWARE\\WOW6432Node\\Ntreev USA\\Pangya\\Option";
-            var keys = Registry.LocalMachine.OpenSubKey(subkey, true);
-            if (keys == null)//aqui eu seto as opcoes
+            var Opt = Registry.LocalMachine.OpenSubKey(subkey, true);
+            if (Opt == null)//aqui eu seto as opcoes
             {
-//                "vWindowMode" , "0"
-//"vFillMode" , "0"
-//"vWideMode" , "0"
-//"vOverall" , "-1"
-//"vScreenWidth" , "1024"
-//"vScreenHeight" , "768"
-//"vScreenColor" , "32"
-//"vTnLMode" , "1"
-//"vEffectLevel" , "1"
-//"vProjectionShadow" , "1"
-//"vShadowmap" , "1"
-//"vReflection" , "0"
-//"vLod" , "0"
-//"vNpc" , "1"
-//"vCoordX" , "0"
-//"vCoordY" , "0"
-//"vGamma" , "1.3"
-//"viHdr" , "0"
-//"viHdrStarEffect" , "0"
-//"viDof" , "0"
-//"viRimLight" , "0"
-//"viAmbientControl" , "0"
-//"viFXAA" , "0"
-//"vfBright" , "3.00"
-//"viShaderOnOff" , "0"
-//"aMssOn" , "1"
-//"aOverall" , "0"
-//"aMssFreq" , "44100"
-//"aMssBits" , "16"
-//"aMssChannels" , "2"
-//"aMssEnableHwSound" , "1"
-//"aMssBalance" , "128"
-//"aMssSpeaker" , "0"
-//"aSfxVolume" , "1.00"
-//"aBGMVolume" , "1.00"
-//"gMouseSensitivity" , "1.00"
-//"gWhisper" , "1"
-//"gInvitation" , "1"
-//"gFriendConfirm" , "1"
-//"gTransChatWin" , "1"
-//"gUiEffect" , "1"
-//"gLastLoginID" , ""
-//"gIdentity" , "0"
-//"gExtendChatLine" , "0"
-//"gUserSort" , "0"
-//"gPPL_Enable" , "1"
-//"gPPL_Size" , "0"
-//"gPowerGauge" , "1"
-//"gFullyProportionalPowerGaugeSize" , "0"
-//"gCenteredPowerGauge" , "0"
-//"gCaptureLogo" , "1"
-//"gRestore" , "0"
-//"gChatWnd" , "0"
-//"gUnderTabBtn" , "0"
-//"gAvatarNewbie" , "1"
-//"gCaptureHideGUI" , "0"
-//"gCaptureHidePI" , "0"
-//"gTerrainTooltip" , "1"
-//"gCutinDisplay" , "1"
-//"gBindMouseCursor" , "1"
-//"mMacro1" , "Hello! "
-//"mMacro2" , "Nice to meet you."
-//"mMacro3" , "Good Luck!"
-//"mMacro4" , "Eu (e64) Pangya!"
-//"mMacro5" , "Go for a Hole in One!"
-//"mMacro6" , "Nice Shot! (e19)"
-//"mMacro7" , "Very Close!"
-//"mMacro8" , "Nice Try."
-//"mSaveMacros" , "1"
+                Opt = Registry.LocalMachine.CreateSubKey("SOFTWARE\\WOW6432Node\\Ntreev USA\\Pangya\\Option");
+                Opt.SetValue("vWindowMode", "0");
+                Opt.SetValue("vFillMode", "0");
+                Opt.SetValue("vWideMode", "0");
+                Opt.SetValue("vOverall", "-1");
+                Opt.SetValue("vScreenWidth", "1024");
+                Opt.SetValue("vScreenHeight", "768");
+                Opt.SetValue("vScreenColor", "32");
+                Opt.SetValue("vTnLMode", "1");
+                Opt.SetValue("vEffectLevel", "1");
+                Opt.SetValue("vProjectionShadow", "1");
+                Opt.SetValue("vShadowmap", "1");
+                Opt.SetValue("vReflection", "0");
+                Opt.SetValue("vLod", "0");
+                Opt.SetValue("vNpc", "1");
+                Opt.SetValue("vCoordX", "0");
+                Opt.SetValue("vCoordY", "0");
+                Opt.SetValue("vGamma", "1.3");
+                Opt.SetValue("viHdr", "0");
+                Opt.SetValue("viHdrStarEffect", "0");
+                Opt.SetValue("viDof", "0");
+                Opt.SetValue("viRimLight", "0");
+                Opt.SetValue("viAmbientControl", "0");
+                Opt.SetValue("viFXAA", "0");
+                Opt.SetValue("vfBright", "3.00");
+                Opt.SetValue("viShaderOnOff", "0");
+                Opt.SetValue("aMssOn", "1");
+                Opt.SetValue("aOverall", "0");
+                Opt.SetValue("aMssFreq", "44100");
+                Opt.SetValue("aMssBits", "16");
+                Opt.SetValue("aMssChannels", "2");
+                Opt.SetValue("aMssEnableHwSound", "1");
+                Opt.SetValue("aMssBalance", "128");
+                Opt.SetValue("aMssSpeaker", "0");
+                Opt.SetValue("aSfxVolume", "1.00");
+                Opt.SetValue("aBGMVolume", "1.00");
+                Opt.SetValue("gMouseSensitivity", "1.00");
+                Opt.SetValue("gWhisper", "1");
+                Opt.SetValue("gInvitation", "1");
+                Opt.SetValue("gFriendConfirm", "1");
+                Opt.SetValue("gTransChatWin", "1");
+                Opt.SetValue("gUiEffect", "1");
+                Opt.SetValue("gLastLoginID", "");         //user id
+                Opt.SetValue("gIdentity", "0"); //user uid
+                Opt.SetValue("gExtendChatLine", "0");
+                Opt.SetValue("gUserSort", "0");
+                Opt.SetValue("gPPL_Enable", "1");
+                Opt.SetValue("gPPL_Size", "0");
+                Opt.SetValue("gPowerGauge", "1");
+                Opt.SetValue("gFullyProportionalPowerGaugeSize", "0");
+                Opt.SetValue("gCenteredPowerGauge", "0");
+                Opt.SetValue("gCaptureLogo", "1");
+                Opt.SetValue("gRestore", "0");
+                Opt.SetValue("gChatWnd", "0");
+                Opt.SetValue("gUnderTabBtn", "0");
+                Opt.SetValue("gAvatarNewbie", "1");
+                Opt.SetValue("gCaptureHideGUI", "0");
+                Opt.SetValue("gCaptureHidePI", "0");
+                Opt.SetValue("gTerrainTooltip", "1");
+                Opt.SetValue("gCutinDisplay", "1");
+                Opt.SetValue("gBindMouseCursor", "1");
+                Opt.SetValue("mMacro1", "Eu Amo a Unogames (e7)");
+                Opt.SetValue("mMacro2", "Nice to meet you.");
+                Opt.SetValue("mMacro3", "Good Luck!");
+                Opt.SetValue("mMacro4", "Eu (e64) Pangya!");
+                Opt.SetValue("mMacro5", "Go for a Hole in One!");
+                Opt.SetValue("mMacro6", "Nice Shot! (e19)");
+                Opt.SetValue("mMacro7", "Very Close!");
+                Opt.SetValue("mMacro8", "Nice Try.");
+                Opt.SetValue("mSaveMacros", "1");
             }
             else
             {
                 //aqui eu puxo
-                vScreenWidth = Convert.ToString(keys.GetValue("vScreenWidth"));
-                vScreenHeight = Convert.ToString(keys.GetValue("vScreenHeight"));
-                var screen = vScreenWidth + " x " + vScreenHeight;
-                rdWindows.Checked = Convert.ToString(keys.GetValue("vWindowMode")) == "1" ? true: false;
-                rdFull.Checked = Convert.ToString(keys.GetValue("vWindowMode")) == "0" ? true : false;
-                ckSound.Checked = Convert.ToString(keys.GetValue("aMssEnableHwSound")) == "1" ? true : false;
-                ckLod.Checked = Convert.ToString(keys.GetValue("vLod")) == "1" ? true : false;
-                ckTnl.Checked = Convert.ToString(keys.GetValue("vTnLMode")) == "1" ? true : false;
-                ckShader.Checked = Convert.ToString(keys.GetValue("viShaderOnOff")) == "1" ? true : false;
+                vScreenWidth = Convert.ToString(Opt.GetValue("vScreenWidth"));
+                vScreenHeight = Convert.ToString(Opt.GetValue("vScreenHeight"));
+                cmbScreen.Text = vScreenWidth + " x " + vScreenHeight;
+                rdWindows.Checked = !(Convert.ToString(Opt.GetValue("vWindowMode")) == "1" ? true: false);
+                rdFull.Checked = (Convert.ToString(Opt.GetValue("vWindowMode")) == "0" ? true : false);
+                ckSound.Checked = (Convert.ToString(Opt.GetValue("aMssEnableHwSound")) == "1" ? true : false);
+                ckLod.Checked = (Convert.ToString(Opt.GetValue("vLod")) == "1" ? true : false);
+                ckTnl.Checked = (Convert.ToString(Opt.GetValue("vTnLMode")) == "1" ? true : false);
+                ckShader.Checked = (Convert.ToString(Opt.GetValue("viShaderOnOff")) == "1" ? true : false);
                 //
-                cmbScreen.Text = screen;
-                keys.Close();
+                Opt.Close();
             }
         }
 
@@ -120,13 +120,28 @@ namespace PangyaUpdate
             if (keys != null)
             {
                 //sets aqui
+                if (cmbScreen.SelectedIndex ==0)
+                {
+                    vScreenWidth = "800";
+                    vScreenHeight = "600";
+                }
+                else if (cmbScreen.SelectedIndex == 1)
+                {
+                    vScreenWidth = "1024";
+                    vScreenHeight = "768";
+                }
+                else if (cmbScreen.SelectedIndex == 2)
+                {
+                    vScreenWidth = "1280";
+                    vScreenHeight = "960";
+                }
                 keys.SetValue("vScreenWidth", vScreenWidth.ToString());
                 keys.SetValue("vScreenHeight", vScreenHeight.ToString());
-                keys.SetValue("vWindowMode", rdWindows.Checked.ToString());
-                keys.SetValue("aMssEnableHwSound", ckSound.Checked.ToString());
-                keys.SetValue("vLod", ckLod.Checked.ToString());
-                keys.SetValue("vTnLMode", ckTnl.Checked.ToString());
-                keys.SetValue("viShaderOnOff", ckShader.Checked.ToString());
+                keys.SetValue("vWindowMode", Convert.ToInt32(rdWindows.Checked).ToString());
+                keys.SetValue("aMssEnableHwSound", Convert.ToInt32(ckSound.Checked).ToString());
+                keys.SetValue("vLod", Convert.ToInt32(ckLod.Checked).ToString());
+                keys.SetValue("vTnLMode", Convert.ToInt32(ckTnl.Checked).ToString());
+                keys.SetValue("viShaderOnOff", Convert.ToInt32(ckShader.Checked).ToString());
                 keys.Close();
             }
         }

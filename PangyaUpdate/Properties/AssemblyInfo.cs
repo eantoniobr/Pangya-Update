@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("PangyaUpdate")]
+[assembly: AssemblyTitle("Pangya Launcher")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PangyaUpdate")]
+[assembly: AssemblyProduct("Pangya Launcher")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 // Definir ComVisible como false torna os tipos neste assembly invisíveis
 // para componentes COM. Caso precise acessar um tipo neste assembly de
 // COM, defina o atributo ComVisible como true nesse tipo.
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 // O GUID a seguir será destinado à ID de typelib se este projeto for exposto para COM
 [assembly: Guid("373b5af2-0dcb-4f9a-9d51-3b0e0412f00e")]

@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using PangyaUpdate.Tools;
+using System.Net.Sockets;
 using System.Numerics;
 using System.Windows.Forms;
 using static PangyaUpdate.Patcher;
@@ -38,10 +39,8 @@ namespace PangyaUpdate
             this.BarUpdate = new System.Windows.Forms.ProgressBar();
             this.BarProcess = new System.Windows.Forms.ProgressBar();
             this.BtnReport = new System.Windows.Forms.Button();
-            this.lbFile = new System.Windows.Forms.Label();
             this.Banner = new System.Windows.Forms.WebBrowser();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.lbProcessDesc = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
@@ -52,6 +51,7 @@ namespace PangyaUpdate
             this.BtnAbrirProjectG = new System.Windows.Forms.Button();
             this.BtnSair = new System.Windows.Forms.Button();
             this.lblPatchVer = new System.Windows.Forms.Label();
+            this.lbProcessDesc = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // BarUpdate
@@ -67,8 +67,8 @@ namespace PangyaUpdate
             // 
             // BarProcess
             // 
-            this.BarProcess.BackColor = System.Drawing.Color.Cyan;
-            this.BarProcess.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.BarProcess.BackColor = System.Drawing.Color.Crimson;
+            this.BarProcess.ForeColor = System.Drawing.Color.Crimson;
             this.BarProcess.Location = new System.Drawing.Point(251, 405);
             this.BarProcess.Maximum = 1000;
             this.BarProcess.Name = "BarProcess";
@@ -79,7 +79,7 @@ namespace PangyaUpdate
             // BtnReport
             // 
             this.BtnReport.BackColor = System.Drawing.Color.Transparent;
-            this.BtnReport.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnReport;
+            this.BtnReport.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnReportar_OK;
             this.BtnReport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnReport.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnReport.FlatAppearance.BorderSize = 0;
@@ -95,27 +95,16 @@ namespace PangyaUpdate
             this.BtnReport.Paint += new System.Windows.Forms.PaintEventHandler(this.BtnPaint);
             this.BtnReport.MouseLeave += new System.EventHandler(this._MouseLeave);
             // 
-            // lbFile
-            // 
-            this.lbFile.AutoSize = true;
-            this.lbFile.BackColor = System.Drawing.Color.Transparent;
-            this.lbFile.ForeColor = System.Drawing.Color.Cyan;
-            this.lbFile.Location = new System.Drawing.Point(347, 422);
-            this.lbFile.Name = "lbFile";
-            this.lbFile.Size = new System.Drawing.Size(15, 13);
-            this.lbFile.TabIndex = 10;
-            this.lbFile.Text = "dl";
-            // 
             // Banner
             // 
-            this.Banner.Location = new System.Drawing.Point(337, 52);
+            this.Banner.Location = new System.Drawing.Point(10, 35);
             this.Banner.MinimumSize = new System.Drawing.Size(20, 20);
             this.Banner.Name = "Banner";
             this.Banner.ScriptErrorsSuppressed = true;
             this.Banner.ScrollBarsEnabled = false;
-            this.Banner.Size = new System.Drawing.Size(356, 260);
+            this.Banner.Size = new System.Drawing.Size(694, 338);
             this.Banner.TabIndex = 12;
-            this.Banner.Url = new System.Uri("http://gameraze.com.br/Notes/Patcher", System.UriKind.Absolute);
+            this.Banner.Url = new System.Uri("http://144.217.169.230/game", System.UriKind.Absolute);
             // 
             // linkLabel1
             // 
@@ -124,18 +113,6 @@ namespace PangyaUpdate
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(0, 13);
             this.linkLabel1.TabIndex = 18;
-            // 
-            // lbProcessDesc
-            // 
-            this.lbProcessDesc.AutoSize = true;
-            this.lbProcessDesc.BackColor = System.Drawing.Color.Transparent;
-            this.lbProcessDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbProcessDesc.ForeColor = System.Drawing.Color.Blue;
-            this.lbProcessDesc.Location = new System.Drawing.Point(309, 392);
-            this.lbProcessDesc.Name = "lbProcessDesc";
-            this.lbProcessDesc.Size = new System.Drawing.Size(20, 13);
-            this.lbProcessDesc.TabIndex = 19;
-            this.lbProcessDesc.Text = "file";
             // 
             // timer1
             // 
@@ -156,7 +133,7 @@ namespace PangyaUpdate
             this.BtnLogo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.BtnLogo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.BtnLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnLogo.Location = new System.Drawing.Point(175, 461);
+            this.BtnLogo.Location = new System.Drawing.Point(61, 470);
             this.BtnLogo.Margin = new System.Windows.Forms.Padding(3, 3, 0, 0);
             this.BtnLogo.Name = "BtnLogo";
             this.BtnLogo.Size = new System.Drawing.Size(90, 43);
@@ -167,7 +144,7 @@ namespace PangyaUpdate
             // BtnResetPatch
             // 
             this.BtnResetPatch.BackColor = System.Drawing.Color.Transparent;
-            this.BtnResetPatch.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnResetPatch;
+            this.BtnResetPatch.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnReset_OK;
             this.BtnResetPatch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnResetPatch.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnResetPatch.FlatAppearance.BorderSize = 0;
@@ -184,7 +161,7 @@ namespace PangyaUpdate
             // BtnOptions
             // 
             this.BtnOptions.BackColor = System.Drawing.Color.Transparent;
-            this.BtnOptions.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnOptions;
+            this.BtnOptions.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnOpt_OK;
             this.BtnOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnOptions.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnOptions.FlatAppearance.BorderSize = 0;
@@ -201,7 +178,7 @@ namespace PangyaUpdate
             // BtnSafeMode
             // 
             this.BtnSafeMode.BackColor = System.Drawing.Color.Transparent;
-            this.BtnSafeMode.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnSafeMode;
+            this.BtnSafeMode.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnSeguro_OK;
             this.BtnSafeMode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnSafeMode.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnSafeMode.FlatAppearance.BorderSize = 0;
@@ -218,7 +195,7 @@ namespace PangyaUpdate
             // BtnAbrirProjectG
             // 
             this.BtnAbrirProjectG.BackColor = System.Drawing.Color.Transparent;
-            this.BtnAbrirProjectG.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnAbrirProjectG;
+            this.BtnAbrirProjectG.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnJogar_OK;
             this.BtnAbrirProjectG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnAbrirProjectG.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnAbrirProjectG.FlatAppearance.BorderSize = 0;
@@ -236,7 +213,7 @@ namespace PangyaUpdate
             // BtnSair
             // 
             this.BtnSair.BackColor = System.Drawing.Color.Transparent;
-            this.BtnSair.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnSair;
+            this.BtnSair.BackgroundImage = global::PangyaUpdate.Properties.Resources.BtnSair_OK;
             this.BtnSair.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnSair.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnSair.FlatAppearance.BorderSize = 0;
@@ -256,19 +233,31 @@ namespace PangyaUpdate
             this.lblPatchVer.BackColor = System.Drawing.Color.Transparent;
             this.lblPatchVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblPatchVer.Font = new System.Drawing.Font("Arial Black", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPatchVer.ForeColor = System.Drawing.Color.Transparent;
-            this.lblPatchVer.Location = new System.Drawing.Point(574, 9);
+            this.lblPatchVer.ForeColor = System.Drawing.Color.Black;
+            this.lblPatchVer.Location = new System.Drawing.Point(169, 13);
             this.lblPatchVer.Name = "lblPatchVer";
-            this.lblPatchVer.Size = new System.Drawing.Size(91, 11);
+            this.lblPatchVer.Size = new System.Drawing.Size(51, 11);
             this.lblPatchVer.TabIndex = 26;
-            this.lblPatchVer.Text = "Pangya Update Ver ";
+            this.lblPatchVer.Text = "Ver (None)";
             this.lblPatchVer.Visible = false;
+            // 
+            // lbProcessDesc
+            // 
+            this.lbProcessDesc.AutoSize = true;
+            this.lbProcessDesc.BackColor = System.Drawing.Color.Transparent;
+            this.lbProcessDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProcessDesc.ForeColor = System.Drawing.Color.Blue;
+            this.lbProcessDesc.Location = new System.Drawing.Point(336, 389);
+            this.lbProcessDesc.Name = "lbProcessDesc";
+            this.lbProcessDesc.Size = new System.Drawing.Size(20, 13);
+            this.lbProcessDesc.TabIndex = 19;
+            this.lbProcessDesc.Text = "file";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::PangyaUpdate.Properties.Resources.Bitmap140;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.CancelButton = this.BtnSair;
             this.ClientSize = new System.Drawing.Size(715, 522);
@@ -282,7 +271,6 @@ namespace PangyaUpdate
             this.Controls.Add(this.lbProcessDesc);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.Banner);
-            this.Controls.Add(this.lbFile);
             this.Controls.Add(this.BtnReport);
             this.Controls.Add(this.BarProcess);
             this.Controls.Add(this.BarUpdate);
@@ -312,10 +300,8 @@ namespace PangyaUpdate
         public ProgressBar BarUpdate;
         public ProgressBar BarProcess;
         public Button BtnReport;
-        public Label lbFile;
         public WebBrowser Banner;
         public LinkLabel linkLabel1;
-        public Label lbProcessDesc;
         public Timer timer1;
         public ToolTip toolTip1;
         public Timer timer2;
@@ -326,7 +312,8 @@ namespace PangyaUpdate
         public Button BtnAbrirProjectG;
         public Button BtnSair;
         public Label lblPatchVer;
-        private UpdateUnit UpdateUnit;
+        private UpdateUnit UpdateUnit = new UpdateUnit();
+        public Label lbProcessDesc;
     }
 }
 
